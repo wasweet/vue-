@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet"  href="//at.alicdn.com/t/font_2565155_w9p3oxrz4r.css"/>
+		<style type="text/css">
+			.star {
+				color: #FF4500;
+				font-size: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<i class="star iconfont iconstar1 "
+			   v-for="item in count"
+			   :class="{iconstar2: item<=enterScore}"
+			   @mouseenter="enterScore = item" @mouseleave="enterScore = score"
+			   @click="score = item"></i>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						count:10, //总分
+						score:5, //得分
+						enterScore:5 // 鼠标悬停时
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			li.active {
+				background-color: orange;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tabs">
+			<b-tabs :list="list">
+				<b-tabs-item>北京</b-tabs-item>
+				<b-tabs-item>上海</b-tabs-item>
+				<b-tabs-item>天津</b-tabs-item>
+				<b-tabs-item>浙江</b-tabs-item>
+			</b-tabs>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('b-tabs-item', {
+				template:`
+				<div v-show='show'>
+				<slot></slot>
+				</div>
+				`,
+				created() {
+					// console.log(this.$parent.activeIndex)
+				},
+				data() {
+					return {
+						show:false
+					}
+				}
+			})
+			Vue.component('b-tabs',{
+				template:`
+				<div class="tabs">
+					<ul class="title flex">
+						<li v-for="(item,index) in list"
+							:class="{active:index === activeIndex}"
+							@click="activeIndex = index"
+						>{{item}}</li>
+					</ul>
+					<slot></slot>
+				</div>
+				`,
+				props:['list'],
+				data() {
+					return {
+						activeIndex:0
+					}
+				},
+				mounted() {
+					// console.log(this.$children)
+					this.$children[0].show = true
+				},
+				watch:{
+					activeIndex(nval,oval) {
+						// console.log(nval)
+						this.$children[nval].show = true
+						this.$children[oval].show = false
+					}
+				}
+			})
+			new Vue({
+				el:'.tabs',
+				data() {
+					return {
+						list:['北京','上海','天津','浙江']
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

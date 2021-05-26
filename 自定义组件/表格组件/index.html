@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+			}
+			tr,td {
+			border: 1px solid #999;
+			text-align: center;
+			padding: 2px 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<b-table :list="list1">
+				<b-table-item title="姓名" field="name"></b-table-item>
+				<b-table-item title="年龄" field="age"></b-table-item>
+				<b-table-item title="性别" field="sex"></b-table-item>
+			</b-table>
+			<b-table :list="list2">
+				<b-table-item title="地址" field="address"></b-table-item>
+				<b-table-item title="数量" field="count"></b-table-item>
+				<b-table-item title="价格" field="price"></b-table-item>
+				<b-table-item title="颜色" field="color"></b-table-item>
+			</b-table>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			// 标题
+			Vue.component('b-table-item', {
+				template:`
+				<th>{{title}}</th>
+				`,
+				props:['title','field'],
+				mounted() {
+					this.$parent.fieldList.push(this.field)
+				}
+			})
+			// 内容 
+			Vue.component('b-table', {
+				template:`
+					<table>
+						<tr>
+							<slot></slot>
+						</tr>
+						<tr v-for="item in list">
+							<td v-for="col in fieldList">{{item[col]}}</td>
+						</tr>
+					</table>
+				`,
+				props:['list'],
+				data() {
+					return {
+						fieldList:[]
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						
+						list1:[{
+							name:'wasweat',
+							age:20,
+							sex:'男'
+						},{
+							name:'asd',
+							age:12,
+							sex:'女'
+						}],
+						list2:[{
+							address:'北京',
+							count:10,
+							price:100,
+							color:'红色'
+						},{
+							address:'天津',
+							count:1,
+							price:10,
+							color:'紫色'
+						},{
+							address:'上海',
+							count:1001,
+							price:80,
+							color:'黑色'
+						}]
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

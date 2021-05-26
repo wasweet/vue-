@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" href="//at.alicdn.com/t/font_2565902_zd1e97xaxr.css">
+		<style type="text/css">
+			#app {
+				width: 200px;
+				height: 100vh;
+				background-color: #393D49;
+				color: white;
+			}
+			.title1 {
+				font-size: 25px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				background-color:#009688;
+			}
+			.title{
+				font-size: 20px;
+				height: 40px;
+				line-height: 40px;
+				text-indent: 25px;
+				cursor: pointer;
+				padding: 0 10px;
+			}
+			.title:hover {
+				background-color: #2F4056;
+			}
+			.list {
+				font-size: 14px;
+				background-color: #000000;
+			}
+			.list li {
+				height: 40px;
+				line-height: 40px;
+				text-indent: 25px;
+				cursor: pointer;
+			}
+			.list li.active {
+				background-color: #5FB878;
+			}
+			.list li:hover {
+				background-color: #5FB878;
+			}
+			.menu1 {
+				width: 20px;
+				height: 20px;
+				margin-left: -5px;
+			}
+			.menu {
+				width: 15px;height: 15px;
+				padding: 0 5px;
+			}
+			
+			.fade-enter-active, .fade-leave-active {
+			  transition: opacity .5s;
+			}
+			.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+			  opacity: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="title1">管理系统</div>
+			<div v-for="(item,i) in list">
+				<div class="title flex j-s" @click="item.show = !item.show">
+					<i class="iconfont menu1" :class="item.icon"></i>
+				<span>{{item.name}}</span>
+				<i class="iconfont" :class="{iconxiajiantou : item.show === false, iconarrow_up_fat:item.show}"></i>
+				</div>
+				<transition name="fade">
+				<ul class="list"  v-show="item.show">
+					<li v-for="(item1,j) in item.child"
+					:class="{active:activeChild === j && activeParent === i}"
+					@click="activeParent = i,activeChild = j">
+					<i class="iconfont menu" :class="item1.icon"></i>
+					{{item1.name}}</li>
+				</ul>
+				</transition>
+			</div>
+			
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data() {
+				return {
+					activeParent:0,
+					activeChild:0,
+					list:[
+						{
+							icon:'iconweixiu',
+							name:'学生管理',
+							show:false,
+							child:[
+								{
+									icon:'iconweixiu',
+									name:'添加学生'
+								},
+								{
+									icon:'iconweixiu',
+									name:'学生管理'
+								},
+								{
+									icon:'iconweixiu',
+									name:'学生权限'
+								}
+							]
+						},
+						{
+							icon:'iconaichegujiabeifen7',
+							name:'教师管理',
+							show:false,
+							child:[
+								{
+									icon:'iconaichegujiabeifen7',
+									name:'添加教师'
+								},
+								{
+									icon:'iconaichegujiabeifen7',
+									name:'教师管理'
+								},
+								{
+									icon:'iconaichegujiabeifen7',
+									name:'教师权限'
+								}
+							]
+						},
+						{
+							icon:'iconxinchebaojia',
+							name:'管理',
+							show:false,
+							child:[
+								{
+									icon:'iconxinchebaojia',
+									name:'添加'
+								},
+								{
+									icon:'iconxinchebaojia',
+									name:'管理'
+								},
+								{
+									icon:'iconxinchebaojia',
+									name:'权限'
+								}
+							]
+						}
+					]
+				}
+				}
+			})
+		</script>
+	</body>
+</html>

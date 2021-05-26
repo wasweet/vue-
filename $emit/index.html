@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2565902_s81jv0n8fie.css"/>
+		<style type="text/css">
+			.search {
+				width: 403px;
+				padding: 6px 39px 6px 30px;
+				border: 2px solid #f00;
+				border-radius: 40px ;
+				justify-content:space-between;
+				align-items: center;
+			}
+			.search input {
+				height: 40px;
+				width: 400px;
+				border: none;
+				line-height: 40px;
+			}
+			.search i {
+				display: inline-block;
+				margin-top: 5px;
+				margin-left: -15px;
+				font-size: 30px;
+			}
+			.search-button {
+				width: 50px;
+				height: 40px;
+				margin-right: -30px;
+				border: none;
+				border-radius: 40px;
+				background-color: #FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<b-search @searched="getText"></b-search>
+			<div>搜索的是:{{text}}</div>
+			<hr>
+			<b-search @searched="goodname = $event"></b-search>
+			<div>搜索的是:{{goodname}}</div>
+		</div>
+		
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('b-search', {
+				template:`
+				<div class="search flex">
+					<i class="iconfont iconsuosou"></i>
+					<input 
+						@keydown.enter="search"
+						v-model="searchText" type="search" placeholder="百度一下"/>
+					<button class="search-button" @click="search">搜索</button>
+				</div>
+				`,
+				data() {
+					return {
+						searchText:''
+					}
+				},
+				methods:{
+					search() {
+						// console.log(this.searchText)
+						this.$emit('searched',this.searchText)
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						text:'',
+						goodname:''
+					}
+				},
+				methods:{
+					getText(e) {
+						// console.log(e)
+						this.text = e
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

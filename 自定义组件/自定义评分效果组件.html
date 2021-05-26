@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet"  href="//at.alicdn.com/t/font_2565155_w9p3oxrz4r.css"/>
+		<style type="text/css">
+			.star {
+				color: #FF4500;
+				font-size: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<star  :score="5" :count="10" color="red" size='20'></star>
+			<star  :score="1" :count="15" color="#000" size='12'></star>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('star',{
+				template:`
+				<div>
+				<i class=" iconfont iconstar1 "
+				:style="{color:color, fontSize:size + 'px'}"
+				   v-for="item in count"
+				   :class="{iconstar2: item<=enterScore}"
+				   @mouseenter="enterScore = item" @mouseleave="enterScore = myscore"
+				   @click="myscore = item"></i>	
+				</div>
+				`,
+				props:['count','score','color','size'], //props里的值不能被修改  备份到data中
+				data() {
+					return {
+						enterScore: this.score,
+						myscore:this.score
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

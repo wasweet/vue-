@@ -1,0 +1,22 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	user-select: none;
+}
+.flex {
+	display: flex;
+}
+.j-c {
+	/*  用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式。 */
+	justify-content: center;
+}
+.j-s {
+	/* 项目位于各行之间留有空白的容器内。 */
+	justify-content: space-between;
+}
+.a-c {
+	/* 属性定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
+	align-items: center;
+}

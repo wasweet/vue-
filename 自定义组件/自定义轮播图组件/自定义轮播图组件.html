@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>轮播图</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="./swiper.css"/>
+		
+	</head>
+	<body>
+		<div id="app">
+			<swiper :list="list"></swiper>
+		</div>
+		
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script src="./swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						list: [
+						'http://p1.music.126.net/g7iCVxW4Bi9BIu-gzwFlhQ==/109951165999597024.jpg?imageView&quality=89',
+						'http://p1.music.126.net/lXevpCUyMVQgtVWLfyYBFQ==/109951165999623702.jpg?imageView&quality=89',
+						'http://p1.music.126.net/DMKyp80BWenW5a85Y_7QfQ==/109951165999629200.jpg?imageView&quality=89',
+						'http://p1.music.126.net/S1k4m3ZD_lh3bwVReXEYgA==/109951165999642507.jpg?imageView&quality=89',
+						'http://p1.music.126.net/YZN9didR4xGzCLe96BHQ6A==/109951165999859964.jpg?imageView&quality=89'
+					]
+					}
+					
+				}
+			})
+		</script>
+	</body>
+</html>

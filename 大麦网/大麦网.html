@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>大麦网</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			#app {
+				padding: 20px;
+			}
+			.city,.type {
+				border: 1px solid #eee;
+				padding: 10px;
+				margin: 10px 0;
+			}
+			.city li,.type li {
+				padding: 5px 10px;
+				margin: 0 5px;
+			}
+			.city li:hover,.type li:hover {
+				background-color: orangered;
+				color: #fff;
+			}
+			.city li.active,.type li.active {
+				background-color: orangered;
+				color: #fff;
+			}
+			.list img {
+				width: 150px;
+				height: 200px;
+				margin: 10px 10px;
+			}
+			.list .title {
+				font-size: 20px;
+				font-weight: 700;
+				margin-top: 5px;
+			} 
+			.list .address,.list .showtime{
+				font-size: 14px;
+				color: #999;
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+			.list li {
+				border-bottom: 1px solid #eee;
+			}
+			.list .actors {
+				font-size: 14px;
+				color: #999;
+			}
+			.list .categoryname {
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+			.list .price {
+				color: #FF4500;
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+			.list .showstatus {
+				
+			}
+			/* v-cloak  取消渲染时，页面显示模版 */
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<ul class="flex city">
+				<li>城市：</li>
+				<!-- 绑定class样式的写法1 -->
+				<li v-for="(item,index) in cityList" 
+					:class="{active: index === cityActive}"
+					@click="cityActive = index;">
+					{{item}}</li> 
+				</ul>
+				<ul class="flex type">
+				<li>分类：</li>
+				<!-- 绑定class样式的写法2 -->
+				<li v-for="(item,index) in typeList" 
+					:class="index ===typeActive ? 'active' : ''"
+					@click="typeActive = index;">
+					{{item}}</li>
+			</ul >
+				<ul class="list">
+					<li><h3>共{{count}}信息</h3></li>
+					<li class="flex" v-for="(item,index) in dataList">
+						<a :href="'./大麦网-详情页.html?id='+item.id">
+						<img :src="item.verticalPic" alt="">
+						</a>
+						<div>
+							<p class="title">{{item.name}}</p>
+							<p class="actors">{{item.actors}}</p>
+							<p class="address">{{item.cityname}} | {{item.venue}}</p>
+							<p class="showtime">{{item.showtime}}</p>
+							<p class="categoryname">{{item.categoryname}}</p>
+							<p class="price">¥{{item.price}}</p>
+						</div>
+					</li>
+				</ul>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				computed:{
+					count() {
+						return this.dataList.length
+					}
+				},
+				data() {
+					return {
+						cityActive:0,
+						typeActive:0,
+						cityList:['全部','北京','苏州','重庆','成都','上海'],
+						typeList:['全部','演唱会','话剧歌剧','展览休闲','体育'],
+						// 保存数据
+						dataList:[]
+						
+					}
+				},
+				 created() {
+					 // 调用请求数据方法
+					 this.getData()
+				},
+				methods:{
+					async getData() {
+						// axios 	请求数据
+						let {data:{pageData:{resultData}}} = await axios.get('./data/data.json')
+						 // console.log(resultData)
+						 // 筛选城市
+						 if(this.cityList[this.cityActive] !=="全部") {
+							 resultData = resultData.filter(r => r.cityname === this.cityList[this.cityActive])
+						 }
+						 // 筛选类别
+						 if(this.typeList[this.typeActive] !== "全部") {
+							 resultData = resultData.filter(r => r.categoryname === this.typeList[this.typeActive])
+						 }
+						 // 保存到dataList中
+						this.dataList = resultData
+						
+					},
+					// 设置城市   (不推荐这种写法  vue 提供了 监听器 watch：{})
+					// setCity(index) {
+					// 	// 点击选中 高亮
+					// 	this.cityActive = index;
+					// 	// 调用数据
+					// 	this.getData()
+					// },
+					// // 设置类型
+					// setType(index) {
+					// 	// 点击选中 高亮
+					// 	this.typeActive = index
+					// 	// 调用数据
+					// 	this.getData()
+					// }
+				},
+				// 监听器
+				watch: {
+					cityActive(nval,oval) {
+						// console.log(nval,oval)
+						// 调用数据
+						this.getData()
+					},
+					typeActive() {
+						// 调用数据
+						this.getData()
+					}
+				}
+				
+			})
+		</script>
+	</body>
+</html>

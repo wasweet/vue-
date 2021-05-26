@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>大麦网-详情页</title>
+		<link rel="stylesheet" href="../css/common.css">
+		<style type="text/css">
+			[v-cloak] {
+				display: none;
+			}
+			
+			#app img {
+				
+				width: 270px;
+				height: 360px;
+				margin: 20px;
+			}
+			.right {
+				margin-left: 10px;
+			}
+			.right .title {
+				font-size: 20px;
+				font-weight: 700;
+				margin-top: 20px;
+			}
+			.right .showtime {
+				font-size: 16px;
+				    color: #4a4a4a;
+					margin-top: 20px;
+			}
+			.right .address {
+				font-size: 16px;
+				    color: #4a4a4a;
+			}
+			.right .select {
+				margin-top: 30px;
+			}
+			.right .select li {
+				border: 1px solid #EEEEEE;
+				padding: 5px 10px;
+				margin: 0 10px;
+			}
+			.right .select li.active {
+				background-color: orangered;
+				color: #fff;
+			}
+			.count {
+				margin-top: 30px;
+			}
+			.count button {
+				width: 24px;
+				height: 24px;
+			}
+			.btnlist {
+				margin-left: 20px;
+			}
+
+			.count input {
+				width: 24px;
+				height: 24px;
+				border: none;
+				text-align: center;
+				margin-right: 5px;
+			}
+			.money {
+				margin-top: 100px;
+			}
+			.money .totalPrice {
+				color: #FF4500;
+				font-weight: 700;
+				font-size: 20px;
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak class="flex ">
+			<img :src="info.verticalPic" alt="">
+			<div class="right">
+				<div class="title">{{info.name}}</div>
+				<div class="showtime">时间{{info.showtime}}</div>
+				<div class="address">{{info.venuecity}} | {{info.venue}}</div>
+				<div class="select flex a-c">
+					<div>票档：</div>
+					<ul class="flex">
+						<li v-for="(item,index) in priceList" 
+							:class="{active: index === activeIndex}"
+							@click="activeIndex = index"
+							>{{item}}</li>
+					</ul>
+				</div>
+				<div class="flex a-c count">
+					<div>数量</div>
+					<div class="btnlist">
+						<button @click="count--" :disabled="count === 1">-</button>
+						<input v-model:value="count" @input="setCount"/>张
+						<button @click="count++" :disabled="count === 6">+</button>
+					</div>
+					<div v-show="count === 6">每笔订单限购6张</div>
+				</div>
+				<div class="money flex a-c">
+					<div>合计</div>
+					<!-- 属性 ｜ 过滤器 -->
+					<div class="totalPrice">¥{{totalPrice | capitalize}}</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				computed:{
+					totalPrice() {
+						return this.priceList[this.activeIndex] * this.count
+					}
+				},
+				// 过滤器(被用于一些常见的文本格式化) 
+				filters:{ //保留两位小数
+					capitalize(value) {
+						return (value).toFixed(2)
+					}
+				},
+				data() {
+					return {
+						// 高亮索引
+						activeIndex:0,
+						// 价格列表
+						priceList:[88,188,288,388],
+						// 购买数量
+						count:1,
+						// 详细信息 的 列表
+						info:{}
+					}
+				},
+				methods:{
+					setCount() {
+						if(isNaN(this.count)) {
+							this.count = 1
+						}
+						if(!Number.isInteger(this.count)) {
+							this.count = parseInt(this.count)
+						}
+						if(this.count < 1) this.count = 1
+						if(this.count > 6) this.count = 6
+					}
+				},
+				async created() {
+					// console.log(location)
+					// 获取地址栏里面的搜索信息  id 等等
+					let search = location.search
+					if(search) {
+						// 从 搜索信息 获取 id 值
+						let arr = search.replace("?",'').split('=')
+						let id = arr[1]
+						// console.log(id)
+						// 根据id 查询对应的详细信息
+						let {data:{pageData:{resultData}}} = await axios.get('./data/data.json')
+						this.info = resultData.find(r => r.id === id)
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

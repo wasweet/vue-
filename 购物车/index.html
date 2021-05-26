@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.shoppingCart {
+				width: 700px;
+				margin: 20px auto;
+				border: 1px solid #eee;
+			}
+			
+			.shoppingCart ul {
+				padding: 10px;
+				border-bottom: 1px solid #eee;
+			}
+			.shoppingCart  li {
+				width: 100px;
+				text-align: center;
+			}
+			.sub,.add {
+				width: 24px;
+				height: 24px;
+			}
+			.count {
+				width: 25px;
+				text-align: center;
+			}
+			.total {
+				position: relative;
+				left: 300px;
+			}
+			.money {
+				color: #FF4500;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="shoppingCart">
+				<ul class="flex j-s"> 
+					<li><input type="checkbox" v-model="ischeckAll" @change="selectAll"/>全选</li>
+					<li>名称</li>
+					<li>单价</li>
+					<li>数量</li>
+					<li>小计</li>
+					<li>操作</li>
+				</ul>
+				<ul class="flex j-s " v-for="item in goodList">
+					<li><input type="checkbox" v-model="item.isCheck" @change="select"/></li>
+					<li>{{item.name}}</li>
+					<li>{{item.price | toFixed | rmb}}</li>
+					<li>
+						<button class="sub" type="button" @click="item.count--" :disabled="item.count === 0">-</button>
+						<input class="count" v-model:value="item.count" @input="setCount(item.id,$event)"/>
+						<button class="add" type="button" @click="item.count++" :disabled="item.count === 10">+</button>
+					</li>
+					<li>{{item.price * item.count | toFixed | rmb}} </li>
+					<li>
+						<button type="button" @click="del(item.id)">删除</button>
+					</li>
+				</ul>
+				<div class="total flex" >
+					<div>总计: </div>
+					<div class="money">{{total | toFixed | rmb}}</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				filters:{
+					toFixed(value) {
+						return value.toFixed(2)
+					},
+					rmb(val) {
+						return '¥'+ val
+					}
+				},
+				methods:{
+					// 全选
+					selectAll() {
+						//循环商品数组，修改选中状态
+						this.goodList.forEach(r => r.isCheck = this.ischeckAll)
+					},
+					// 复选 (只要有一条数据没选中，全选就为false)
+					select() {
+						this.ischeckAll = this.goodList.every(r => r.isCheck )
+					},
+					// 输入不合法检测
+					setCount(id,e) {
+						// console.log(e.target.value)
+						let count = e.target.value
+						if(isNaN(count)) {
+							count = 0
+						}
+						if(!Number.isInteger(count)) {
+							count = parseInt(count)
+						}
+						if(count < 0) count = 0
+						if(count > 10) count = 10
+						
+						// 根据id 找到对应的商品数据
+						let goods = this.goodList.find(r => r.id === id)
+						goods.count = count
+					},
+					// 删除
+					del(id) {
+						if(confirm('是否确定删除？')) {
+							 this.goodList =  this.goodList.filter(r => r.id !==id )
+							// 或者
+							// let index = this.goodList.findIndex(r=> r.id)
+							// this.goodList.splice(index,1)
+						}
+					}
+				},
+				computed:{
+					total() {
+						let result = 0
+						this.goodList.filter(r => r.isCheck).forEach(r => {
+							result += r.price * r.count
+						})
+						return result
+					}
+				},
+				data() {
+					return {
+						// 全选
+						ischeckAll: false,
+						// 商品数据
+						goodList:[{
+							id:1,
+							name:'华为手机',
+							price:5999,
+							count:1,
+							isCheck:false
+						},{
+							id:2,
+							name:'小米手机',
+							price:3999,
+							count:1,
+							isCheck:false
+						},{
+							id:3,
+							name:'苹果手机',
+							price:8999,
+							count:1,
+							isCheck:false
+						}]
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

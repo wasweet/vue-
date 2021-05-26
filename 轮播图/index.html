@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>轮播图</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			.img {
+				width: 900px;
+				height: 400px;
+				overflow: hidden;
+				margin: 20px auto;
+				position: relative;
+			}
+			.img img {
+				width: 900px;
+				height: 400px;
+			}
+			.dian {
+				height: 20px;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				position: absolute;
+				bottom: 20px;
+			}
+			.dian li {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: #eee;
+				margin: 0 5px;
+			}
+			.dian li.active {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: #FF4500;
+				margin: 0 5px;
+			}
+			.img i {
+				display: block;
+				width: 37px;
+				height: 63px;
+				background-image: url('https://s2.music.126.net/style/web2/img/index/banner.png?d3615a54991b10dbdbe1c7a77538fbaf');
+			}
+			.img .left {
+				background-position: 0 -360px;
+				position: absolute;
+				left: 10px;
+				right: 10px;
+				top: 50%;
+				margin-top: -31px;
+			}
+			.img .right {
+				background-position:0 -508px;
+				position: absolute;
+				top: 50%;
+				margin-top: -31px;
+				right: 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="img">
+				
+				<i class="left" @click="top"></i>
+				<i class="right" @click="next"></i>
+				<img  v-show="index === acitveindex" v-for="(item,index) in list" :src="item" alt="">
+				<ul class="dian">
+					<li v-for="(item,index) in list" 
+					:class="{active: index === acitveindex}"
+					@click="setActive(index)"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						// 定义定时器
+						timer:-1,
+						acitveindex:0,
+						list: [
+							'http://p1.music.126.net/g7iCVxW4Bi9BIu-gzwFlhQ==/109951165999597024.jpg?imageView&quality=89',
+							'http://p1.music.126.net/lXevpCUyMVQgtVWLfyYBFQ==/109951165999623702.jpg?imageView&quality=89',
+							'http://p1.music.126.net/DMKyp80BWenW5a85Y_7QfQ==/109951165999629200.jpg?imageView&quality=89',
+							'http://p1.music.126.net/S1k4m3ZD_lh3bwVReXEYgA==/109951165999642507.jpg?imageView&quality=89',
+							'http://p1.music.126.net/YZN9didR4xGzCLe96BHQ6A==/109951165999859964.jpg?imageView&quality=89'
+						]
+					}
+				},
+				mounted() {
+					// 调用定时器
+					this.timerRun()
+				},
+				methods:{
+					// 定时器
+					timerRun() {
+						timer = setInterval(() => {
+							if(++this.acitveindex === this.list.length) {
+								this.acitveindex = 0
+							}
+						},2000)
+					},
+					// 向左
+					top() {
+						// 清除定时器
+						clearInterval(timer)
+						this.acitveindex--
+						if(this.acitveindex < 0) {
+							this.acitveindex = this.list.length-1
+						}
+						// 重启定时器
+						this.timerRun()
+					},
+					// 向右
+					next() {
+						// 清除定时器
+						clearInterval(timer)
+						this.acitveindex++
+						if(this.acitveindex === this.list.length) {
+							this.acitveindex = 0
+						}
+						// 重启定时器
+						this.timerRun()
+					},
+					// 鼠标指定跳转
+					setActive(id) {
+						this.acitveindex = id
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

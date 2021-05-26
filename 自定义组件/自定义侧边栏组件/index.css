@@ -1,0 +1,56 @@
+#app {
+				width: 200px;
+				height: 100vh;
+				background-color: #393D49;
+				color: white;
+			}
+			.title1 {
+				font-size: 25px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				background-color:#009688;
+			}
+			.title{
+				font-size: 20px;
+				height: 40px;
+				line-height: 40px;
+				text-indent: 25px;
+				cursor: pointer;
+				padding: 0 10px;
+			}
+			.title:hover {
+				background-color: #2F4056;
+			}
+			.list {
+				font-size: 14px;
+				background-color: #000000;
+			}
+			.list li {
+				height: 40px;
+				line-height: 40px;
+				text-indent: 25px;
+				cursor: pointer;
+			}
+			.list li.active {
+				background-color: #5FB878;
+			}
+			.list li:hover {
+				background-color: #5FB878;
+			}
+			.menu1 {
+				width: 20px;
+				height: 20px;
+				margin-left: -5px;
+			}
+			.menu {
+				width: 15px;height: 15px;
+				padding: 0 5px;
+			}
+			
+			.fade-enter-active, .fade-leave-active {
+			  transition: opacity .5s;
+			}
+			.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+			  opacity: 0;
+			}

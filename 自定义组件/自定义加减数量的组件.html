@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<counter :count="3" :min="1" :max="10"></counter>
+			<counter :count="3" :min="2" :max="8"></counter>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('counter', {
+				template:`
+				<div>
+				<button class="sub" type="button" @click="mycount--" :disabled="mycount === min">-</button>
+				<input class="count" v-model:value="mycount" @input="setCount"/>
+				<button class="add" type="button" @click="mycount++" :disabled="mycount === max">+</button>
+				</div>
+				`,
+				props:{
+					count:{
+						type:Number,
+						default:3
+					},
+					min:{
+						type:Number,
+						default:2
+					},
+					max:{
+						type:Number,
+						default:8
+					}
+				},
+				data() {
+					return {
+						mycount:this.count
+					}
+				},
+				methods:{
+					setCount(e) {
+						// console.log(e.target.value)
+						let count = e.target.value
+						if(isNaN(count)) {
+							count = 0
+						}
+						if(!Number.isInteger(count)) {
+							count = parseInt(count)
+						}
+						if(count < 0) count = 0
+						if(count > 10) count = 10
+						
+						this.mycount = count
+					},
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

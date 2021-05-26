@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				async created() {
+					let result = await axios.get('http://www.bingjs.com:81/Subject/GetSubjectsCounditionPages')
+					console.log(result)
+				},
+				data() {
+					return {
+						subjectList:[]
+					}
+				},
+			})
+		</script>
+	</body>
+</html>

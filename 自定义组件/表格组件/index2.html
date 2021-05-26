@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>第二种方法</title>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+			}
+			tr,td {
+			border: 1px solid #999;
+			text-align: center;
+			padding: 2px 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<b-table :total-list="totalList1" :field-list="dataList1"></b-table>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			
+			Vue.component('b-table', {
+				template:`
+					<table>
+						<tr>
+							<td v-for="item in totalList">{{item.title}}</td>
+						</tr>
+						 <tr v-for="item in fieldList">
+						 	<td v-for="col in totalList">{{item[col.key]}}</td>
+						 </tr>
+					</table>
+				`,
+				props:{
+					totalList:{
+						type:Array
+					},
+					fieldList:{
+						type:Array
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return {
+						totalList1:[{
+							title:'姓名',
+							key:'name'
+						},{
+							title:'性别',
+							key:'sex'
+						},{
+							title:'年龄',
+							key:'age'
+						}],
+						dataList1:[{
+							name:'wasweat',
+							age:20,
+							sex:'男'
+						},{
+							name:'asd',
+							age:12,
+							sex:'女'
+						}]
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
