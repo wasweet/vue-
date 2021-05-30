@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.conent {
+				width: 300px;
+				margin: 10px;
+				padding: 10px;
+				border: 1px solid #eee;
+				
+			}
+			.list li{
+				border: 1px solid #eee;
+				list-style: none;
+				padding: 10px 0;
+				display: flex;
+				justify-content: space-between;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<b-list :list="list">
+				<template v-slot:default="qqq">
+					<button @click="del(qqq.index)">删除</button>
+				</template>
+			</b-list>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+		<script type="text/javascript">
+			Vue.component('b-list', {
+				template:`
+				<div class="conent">
+					<div>学生管理系统</div>
+					<div class="list">
+						<ul>
+							<li v-for="(item,i) in list">
+							{{item.name}}
+							<slot :index="i"></slot>
+							</li>
+						</ul>
+					</div>
+				</div>
+				`,
+				props:['list'],
+				methods:{
+					
+				}
+			})
+			new Vue({
+				el:'#app',
+				data() {
+					return  {
+						list:[
+							{
+								id:1,
+								name:'asd',
+								age:40
+							},
+							{
+								id:2,
+								name:'qwe',
+								age:12
+							},
+							{
+								id:3,
+								name:'sdf',
+								age:30
+							}
+						]
+					}
+				},
+				methods:{
+					del(i) {
+						this.list.splice(i,1)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

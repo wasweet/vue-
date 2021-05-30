@@ -1,0 +1,19 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	outline:none;
+}
+.flex {
+	display: flex;
+}
+.j-c {
+	justify-content: center;
+}
+.j-s {
+	justify-content: space-between;
+}
+.a-c {
+	align-items: center;
+}

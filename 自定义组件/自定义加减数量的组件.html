@@ -6,8 +6,9 @@
 	</head>
 	<body>
 		<div id="app">
-			<counter :count="3" :min="1" :max="10"></counter>
-			<counter :count="3" :min="2" :max="8"></counter>
+			{{count1}}--{{count2}}
+			<counter v-model="count1" :min="1" :max="10"></counter>
+			<counter v-model="count2" :min="2" :max="8"></counter>
 		</div>
 		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 		<script type="text/javascript">
@@ -20,7 +21,7 @@
 				</div>
 				`,
 				props:{
-					count:{
+					value:{
 						type:Number,
 						default:3
 					},
@@ -35,7 +36,12 @@
 				},
 				data() {
 					return {
-						mycount:this.count
+						mycount:this.value
+					}
+				},
+				watch:{
+					mycount(val) {
+						this.$emit('input', val)
 					}
 				},
 				methods:{
@@ -48,8 +54,8 @@
 						if(!Number.isInteger(count)) {
 							count = parseInt(count)
 						}
-						if(count < 0) count = 0
-						if(count > 10) count = 10
+						if(count < this.min) count = this.min
+						if(count > this.max) count = this.max
 						
 						this.mycount = count
 					},
@@ -59,7 +65,8 @@
 				el:'#app',
 				data() {
 					return {
-						
+						count1:1,
+						count2:2
 					}
 				}
 			})
