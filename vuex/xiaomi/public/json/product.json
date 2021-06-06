@@ -1,0 +1,16 @@
+{
+	"status":0,
+	"data":{
+		"id":10,
+		"categoryId":1001,
+		"name":"Redmi Note 10 Pro",
+		"subtitle":"3200万+4800万 前后双旗舰机",
+		"info":"小米自营",
+		"price":1799,
+		"status":1,
+		"stock":9999,	
+		"createIime":"2019-10-10 10:10:10",
+		"updateTime":"2019-10-11 10:10:10",
+		"parentcategoryId":1001
+	}
+}

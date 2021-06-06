@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<Header></Header>
-		<Menu></Menu>
+		
 		<Banner></Banner>
 		<Bottentry></Bottentry>
 		<Hotgoods :hotgoods="hotgoods"></Hotgoods>
@@ -10,16 +9,14 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Menu from '@/components/Menu'
+
 import Banner from '@/components/Banner'
 import Bottentry from '@/components/Bottentry'
 import Hotgoods from '@/components/Hotgoods'
 import Hardware from '@/components/Hardware'
 export default {
   components:{
-	  Header,
-	  Menu,
+	  
 	  Banner,
 	  Bottentry,
 	  Hotgoods,

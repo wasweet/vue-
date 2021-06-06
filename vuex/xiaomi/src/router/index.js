@@ -8,7 +8,10 @@ const routes = [
     path: '/',
     component:() => import('@/views/Home')
   },
-  
+  {
+    path: '/detail',
+    component:() => import('@/views/Detail')
+  },
 ]
 
 const router = new VueRouter({

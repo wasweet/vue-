@@ -1,0 +1,49 @@
+{
+	"list":[
+		{
+			"categoryId":1001,
+			"id":10,
+			"name":"Redmi Note 10 Pro",
+			"images":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/61454401f855cf5ed64747a6ac04bae5.jpg?thumb=1&w=400&h=400&f=webp&q=90",
+			"price":1799,
+			"status":1,
+			"subtitle":"3200万+4800万 前后双旗舰机"
+		},
+		{
+			"categoryId":1001,
+			"id":11,
+			"name":"小米MIX",
+			"images":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5dc32ec73299ff79556dcd1cf0f0ac11.png?thumb=1&w=400&h=400&f=webp&q=90",
+			"price":1799,
+			"status":1,
+			"subtitle":"折叠大屏"
+		},
+		{
+			"categoryId":1001,
+			"id":12,
+			"name":"小米11",
+			"images":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eb69512d9d6430d865d457ec52eebb51.png?thumb=1&w=400&h=400&f=webp&q=90",
+			"price":1799,
+			"status":1,
+			"subtitle":"2k四维曲屏"
+		},
+		{
+			"categoryId":1001,
+			"id":13,
+			"name":"小米11青春版",
+			"images":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/cb554f30eaa0316b0a736c3d59f21584.png?thumb=1&w=400&h=400&f=webp&q=90",
+			"price":2000,
+			"status":1,
+			"subtitle":"小米11青春版 轻薄"
+		},
+		{
+			"categoryId":1001,
+			"id":14,
+			"name":"黑鲨4pro",
+			"images":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d47f7ecaa04d92bf2790d4a5d53d9099.png?thumb=1&w=400&h=400&f=webp&q=90",
+			"price":2799,
+			"status":1,
+			"subtitle":"黑鲨4pro"
+		}
+	]
+}

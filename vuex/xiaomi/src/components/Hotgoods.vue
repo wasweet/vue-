@@ -13,13 +13,10 @@
 </template>
 
 <script>
+	
 export default {
 	props:['hotgoods'],
-	data() {
-		return {
-			
-		}
-	}
+	
 }
 </script>
 

@@ -6,11 +6,12 @@
 				<img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c583f2edc613f1be20fa415910b13ce3.jpg?thumb=1&w=468&h=1228&f=webp&q=90" alt="">
 			</div>
 			<div class="right">
-				<div v-for="(item,index) in hardware">
+				<div v-for="(item,index) in nav">
+					<router-link to="/detail">
 					<img :src="item.images" alt="">
-					<div class="txt1">{{item.title}}</div>
-					<div class="txt2">{{item.desc}}</div>
-					<div class="txt3">{{item.price}}</div>
+					<div class="txt1">{{item.name}}</div>
+					<div class="txt2">{{item.subtitle}}</div>
+					<div class="txt3">{{item.price}}</div></router-link>
 				</div>
 			</div>
 		</div>
@@ -18,8 +19,19 @@
 </template>
 
 <script>
+	import axios from 'axios'
 	export default {
-		props:['hardware']
+		// props:['hardware'],
+		data() {
+			return {
+				nav:[]
+			}
+		},
+		async created() {
+			let {data:{list}} = await axios.get('/json/nav.json')
+			console.log(list)
+			this.nav =list
+		}
 	}
 </script>
 
